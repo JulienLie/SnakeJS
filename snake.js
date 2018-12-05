@@ -42,7 +42,7 @@ async function draw(){
 
 window.onkeypress = function(e){
     key = e.keyCode ? e.keyCode : e.which;
-    //console.log(key);
+    console.log(key);
 }
 
 function boucle(){
@@ -53,6 +53,16 @@ function boucle(){
     else if(key === 113){ // q
         dir--;
         if(dir === -1) dir = 3;
+    }
+
+    else if(key === 37){ // gauche
+        if(dir === 0 || dir === 2) dir =3;
+    } else if(key === 38){ // haut
+        if(dir === 1 || dir === 3) dir=0;
+    } else if(key === 39){ // droite
+        if(dir === 0 || dir === 2) dir =1;
+    } else if(key === 40){ // bas
+        if(dir === 1 || dir === 3) dir =2;
     }
     key = -1;
 
@@ -70,10 +80,10 @@ function boucle(){
         snake.pop();
     }
 
-    if(contains(snake.slice(1, snake.length-2), snake[0]) 
-        || snake[0][0] === -1 
-        || snake[0][1] === -1 
-        || snake[0][0] === 30 
+    if(contains(snake.slice(1, snake.length-2), snake[0])
+        || snake[0][0] === -1
+        || snake[0][1] === -1
+        || snake[0][0] === 30
         || snake[0][1] === 30
         ){
         console.log("end");
@@ -99,7 +109,7 @@ async function run(){
 
     let sp = document.getElementById("dif");
     let time = sp.value;
-    
+
     let inter = setInterval(function (){
         //console.log('boucle');
         if(!boucle(true)) clearTimeout(inter);
