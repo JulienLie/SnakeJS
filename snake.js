@@ -101,13 +101,9 @@ function boucle(){
         || snake[0][0] === 30
         || snake[0][1] === 30
         ){
-<<<<<<< HEAD
-        console.log("end");
         document.getElementById('canvas').style.border = "2px solid red";
         end = true;
-=======
         // console.log("end");
->>>>>>> f76124781a01e616f6fbb1e37dc9744533978b5d
         return false;
     }
 
