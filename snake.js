@@ -65,6 +65,14 @@ async function draw(){
 
 window.onkeypress = function(e){
     key = e.keyCode ? e.keyCode : e.which;
+    if(!end && inter === null && (key === 37 || key === 113 || key === 38 || key === 122 || key === 39 || key === 100 || key === 40 || key === 115)){
+        let sp = document.getElementById("dif");
+        let time = sp.value;
+        inter = setInterval(function (){
+            //console.log('boucle');
+            if(!boucle()) clearTimeout(inter);
+        }, time);
+    }
     // console.log(key);
 }
 
@@ -130,12 +138,4 @@ async function run(){
     key = -1;
     dir = 3;
     draw();
-
-    let sp = document.getElementById("dif");
-    let time = sp.value;
-
-    inter = setInterval(function (){
-        //console.log('boucle');
-        if(!boucle(true)) clearTimeout(inter);
-    }, time);
 }
