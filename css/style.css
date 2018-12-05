@@ -7,10 +7,11 @@ h1{
 }
 
 #body{
-    float: left;
+    float: right;
+    margin-right: 35%;
 }
 
 #aide{
-    float: right;
-    margin-right: 0%;
+    float: left;
+    margin-left: 0%;
 }

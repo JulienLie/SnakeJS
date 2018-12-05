@@ -70,6 +70,9 @@ async function draw(){
 
 window.onkeypress = function(e){
     key = e.keyCode ? e.keyCode : e.which;
+    if(key === 114){
+        run();
+    }
     if(!end && inter === null && (key === 37 || key === 113 || key === 38 || key === 122 || key === 39 || key === 100 || key === 40 || key === 115)){
         let sp = document.getElementById("dif");
         let time = sp.value;
@@ -162,6 +165,8 @@ async function run(){
     snake.push([snake[0][0]+1, snake[0][1]]);
     snake.push([snake[1][0]+1, snake[1][1]]);
     pomme = randomPos();
+    score = 0;
+    document.getElementById('score').innerHTML="Score: "+score;
     while(contains(snake, pomme)){
         pomme = randomPos();
     }
