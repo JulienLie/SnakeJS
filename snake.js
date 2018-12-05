@@ -2,6 +2,8 @@ let snake = null;
 let pomme = null;
 let key = -1;
 let dir = 3;
+let end = false;
+let inter = null;
 let score = 0;
 let isPommeSpeciale = false;
 let countPomme = 0;
@@ -19,8 +21,13 @@ function changeTheme(){
     if(theme === 0) theme = 1;
     else theme = 0;
     document.getElementById('body').style.backgroundColor = fontColor[theme];
-    document.getElementById('canvas').style.border = "2px solid " + borderColor[theme];
     document.getElementById('text').style.color = borderColor[theme];
+    document.getElementById('score').style.color = borderColor[theme];
+    if(end){
+        document.getElementById('canvas').style.border = "2px solid red";
+    }else{
+        document.getElementById('canvas').style.border = "2px solid " + borderColor[theme];
+    }
     if(snake !== null) draw();
 }
 
@@ -66,6 +73,14 @@ async function draw(){
 
 window.onkeypress = function(e){
     key = e.keyCode ? e.keyCode : e.which;
+    if(!end && inter === null && (key === 37 || key === 113 || key === 38 || key === 122 || key === 39 || key === 100 || key === 40 || key === 115)){
+        let sp = document.getElementById("dif");
+        let time = sp.value;
+        inter = setInterval(function (){
+            //console.log('boucle');
+            if(!boucle()) clearTimeout(inter);
+        }, time);
+    }
     // console.log(key);
 }
 
@@ -80,22 +95,13 @@ function validateTerms(){
 
 function boucle(){
   pommeSpecialeUnable=validateTerms();
-    if(key === 100){ // d
-        dir++;
-        if(dir === 4) dir = 0;
-    }
-    else if(key === 113){ // q
-        dir--;
-        if(dir === -1) dir = 3;
-    }
-
-    else if(key === 37){ // gauche
+    if(key === 37 || key === 113){ // gauche
         if(dir === 0 || dir === 2) dir =3;
-    } else if(key === 38){ // haut
+    } else if(key === 38 || key === 122){ // haut
         if(dir === 1 || dir === 3) dir=0;
-    } else if(key === 39){ // droite
+    } else if(key === 39 || key === 100){ // droite
         if(dir === 0 || dir === 2) dir =1;
-    } else if(key === 40){ // bas
+    } else if(key === 40 || key === 115){ // bas
         if(dir === 1 || dir === 3) dir =2;
     }
     key = -1;
@@ -137,6 +143,8 @@ function boucle(){
         || snake[0][0] === 30
         || snake[0][1] === 30
         ){
+        document.getElementById('canvas').style.border = "2px solid red";
+        end = true;
         // console.log("end");
         return false;
     }
@@ -146,6 +154,12 @@ function boucle(){
 }
 
 async function run(){
+    if(inter !== null){
+        clearTimeout(inter);
+        inter = null;
+    }
+    end = false;
+    document.getElementById('canvas').style.border = "2px solid " + borderColor[theme];
     snake = [];
     snake.push(randomPos());
     snake.push([snake[0][0]+1, snake[0][1]]);
@@ -157,12 +171,4 @@ async function run(){
     key = -1;
     dir = 3;
     draw();
-
-    let sp = document.getElementById("dif");
-    let time = sp.value;
-
-    let inter = setInterval(function (){
-        //console.log('boucle');
-        if(!boucle(true)) clearTimeout(inter);
-    }, time);
 }
