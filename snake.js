@@ -61,22 +61,13 @@ window.onkeypress = function(e){
 }
 
 function boucle(){
-    if(key === 100){ // d
-        dir++;
-        if(dir === 4) dir = 0;
-    }
-    else if(key === 113){ // q
-        dir--;
-        if(dir === -1) dir = 3;
-    }
-
-    else if(key === 37){ // gauche
+    if(key === 37 || key === 113){ // gauche
         if(dir === 0 || dir === 2) dir =3;
-    } else if(key === 38){ // haut
+    } else if(key === 38 || key === 122){ // haut
         if(dir === 1 || dir === 3) dir=0;
-    } else if(key === 39){ // droite
+    } else if(key === 39 || key === 100){ // droite
         if(dir === 0 || dir === 2) dir =1;
-    } else if(key === 40){ // bas
+    } else if(key === 40 || key === 115){ // bas
         if(dir === 1 || dir === 3) dir =2;
     }
     key = -1;
