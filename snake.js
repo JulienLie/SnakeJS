@@ -5,10 +5,14 @@ let dir = 3;
 let end = false;
 let inter = null;
 let score = 0;
+let isPommeSpeciale = false;
+let countPomme = 0;
+let pommeSpecialeUnable = false;
 const dirs = [[0, -1], [1, 0], [0, 1], [-1, 0]];
 const fontColor = ["#FFFFFF", "#000000"];
 const snakeColor = ["#000000", "#FFFFFF"];
 const pommeColor = ["#FF0000", "#FF0000"];
+const pommeSpecialeColor = ["#00FF00","#00FF00"];
 let theme = 0;
 
 function changeTheme(){
@@ -49,7 +53,11 @@ async function draw(){
                     ctx.fillStyle = snakeColor[theme];
                 }
                 else if(pomme[0] === i && pomme[1] === j){
+                  if(isPommeSpeciale){
+                    ctx.fillStyle = pommeSpecialeColor[theme];
+                  } else{
                     ctx.fillStyle = pommeColor[theme];
+                  }
                 }
                 else{
                     ctx.fillStyle = fontColor[theme];
@@ -73,7 +81,17 @@ window.onkeypress = function(e){
     // console.log(key);
 }
 
+function validateTerms(){
+  var c=document.getElementById('termsCheckbox');
+  if (c.checked) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
 function boucle(){
+  pommeSpecialeUnable=validateTerms();
     if(key === 37 || key === 113){ // gauche
         if(dir === 0 || dir === 2) dir =3;
     } else if(key === 38 || key === 122){ // haut
@@ -91,11 +109,26 @@ function boucle(){
     snake.unshift(newPos);
     //console.log(snake);
     if(contains(snake, pomme)){
+      if(isPommeSpeciale){
+        countPomme+=3;
+      }
         while(contains(snake, pomme)){
             pomme = randomPos();
+            if(pommeSpecialeUnable && Math.random() < 0.1){
+              isPommeSpeciale = true;
+            }else{
+              isPommeSpeciale=false;
+            }
         }
+
         score++;
         document.getElementById('score').innerHTML="Score: "+score;
+
+
+    }else if(countPomme>0){
+      countPomme--;
+      score++;
+      document.getElementById('score').innerHTML="Score: "+score;
     }
     else{
         snake.pop();
