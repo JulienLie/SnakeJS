@@ -16,12 +16,12 @@ function changeTheme(){
     if(theme === 0) theme = 1;
     else theme = 0;
     document.getElementById('body').style.backgroundColor = fontColor[theme];
+    document.getElementById('text').style.color = borderColor[theme];
     if(end){
         document.getElementById('canvas').style.border = "2px solid red";
     }else{
         document.getElementById('canvas').style.border = "2px solid " + borderColor[theme];
     }
-    document.getElementById('text').style.color = borderColor[theme];
     if(snake !== null) draw();
 }
 
