@@ -18,6 +18,7 @@ function changeTheme(){
     else theme = 0;
     document.getElementById('body').style.backgroundColor = fontColor[theme];
     document.getElementById('text').style.color = borderColor[theme];
+    document.getElementById('score').style.color = borderColor[theme];
     if(end){
         document.getElementById('canvas').style.border = "2px solid red";
     }else{
