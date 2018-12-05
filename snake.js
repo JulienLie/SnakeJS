@@ -1,8 +1,23 @@
-let snake;
-let pomme;
-let key;
-let dir;
+let snake = null;
+let pomme = null;
+let key = -1;
+let dir = 3;
 const dirs = [[0, -1], [1, 0], [0, 1], [-1, 0]];
+const fontColor = ["#FFFFFF", "#000000"];
+const snakeColor = ["#000000", "#FFFFFF"];
+const pommeColor = ["#FF0000", "#FF0000"];
+const borderColor = ["black", "white"];
+let theme = 0;
+
+function changeTheme(){
+    //console.log('change');
+    if(theme === 0) theme = 1;
+    else theme = 0;
+    document.getElementById('body').style.backgroundColor = fontColor[theme];
+    document.getElementById('canvas').style.border = "2px solid " + borderColor[theme];
+    document.getElementById('text').style.color = borderColor[theme];
+    if(snake !== null) draw();
+}
 
 function randomPos(){
     let x = Math.round(Math.random()*25)+1;
@@ -22,17 +37,17 @@ async function draw(){
     let canvas = document.getElementById("canvas");
     if(canvas !== null){
         let ctx = canvas.getContext("2d");
-        ctx.fillStyle = "#FFFFFF";
+        ctx.fillStyle = fontColor[theme];
         for(let i = 0; i < 30; i++){
             for(let j = 0; j < 30; j++){
                 if(contains(snake, [i, j])){
-                    ctx.fillStyle = "#000000";
+                    ctx.fillStyle = snakeColor[theme];
                 }
                 else if(pomme[0] === i && pomme[1] === j){
-                    ctx.fillStyle = "#FF0000";
+                    ctx.fillStyle = pommeColor[theme];
                 }
                 else{
-                    ctx.fillStyle = "#FFFFFF"
+                    ctx.fillStyle = fontColor[theme];
                 }
                 ctx.fillRect(i*10, j*10, i*10+10, j*10+10);
             }
