@@ -5,8 +5,8 @@ let dir;
 const dirs = [[0, -1], [1, 0], [0, 1], [-1, 0]];
 
 function randomPos(){
-    let x = Math.round(Math.random()*26);
-    let y = Math.round(Math.random()*29);
+    let x = Math.round(Math.random()*25)+1;
+    let y = Math.round(Math.random()*28)+1;
     return [x, y];
 }
 
