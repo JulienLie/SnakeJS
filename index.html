@@ -8,25 +8,27 @@
     <link rel="stylesheet" type="text/css" href="css/blackTheme.css">
     <script src="snake.js"></script>
 </head>
-<body id="body" class="white">
+<body class="white">
     <h1 class="text">Snake JS</h1>
-    <button id="start" onclick="run()">reset</button>
-    <select name="difficulties" id="dif">
-        <option value=400>easy</option>
-        <option value=200 selected="selected">medium</option>
-        <option value=100>hard</option>
-        <option value=50>INSANE</option>
-        <option value=30>Sina LEVEL</option>
-    </select>
-    <value id="score">Score: 0</value>
-    <input id="termsCheckbox" name="termsCheckbox" type="checkbox" value="terms" <?PHP echo $terms; ?>Pommes Spéciales</input>
-    <br>
-    <canvas class="border" id="canvas" width="300" height="300"></canvas>
-    <br>
-    <p class="text">
-        theme: 
-        <button id='theme' onclick="changeTheme()">Theme Dark</button>
-    </p>
+    <div id="body">
+        <button id="start" onclick="run()">reset</button>
+        <select name="difficulties" id="dif">
+            <option value=400>easy</option>
+            <option value=200 selected="selected">medium</option>
+            <option value=100>hard</option>
+            <option value=50>INSANE</option>
+            <option value=30>Sina LEVEL</option>
+        </select>
+        <value id="score">Score: 0</value>
+        <input id="termsCheckbox" name="termsCheckbox" type="checkbox" value="terms" <?PHP echo $terms; ?>Pommes Spéciales</input>
+        <br>
+        <canvas class="border" id="canvas" width="300" height="300"></canvas>
+        <br>
+        <p class="text">
+            theme: 
+            <button id='theme' onclick="changeTheme()">Theme Dark</button>
+        </p>
+    </div>
     <div id="aide">
         <h2>Aide</h2>
         <p>

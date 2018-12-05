@@ -1,7 +1,16 @@
+h1{
+    margin-left: 45%;
+}
+
 .loose{
     border: 2px solid red;
 }
 
+#body{
+    float: left;
+}
+
 #aide{
     float: right;
+    margin-right: 0%;
 }
