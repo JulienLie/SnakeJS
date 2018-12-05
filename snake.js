@@ -2,6 +2,7 @@ let snake = null;
 let pomme = null;
 let key = -1;
 let dir = 3;
+let score = 0;
 const dirs = [[0, -1], [1, 0], [0, 1], [-1, 0]];
 const fontColor = ["#FFFFFF", "#000000"];
 const snakeColor = ["#000000", "#FFFFFF"];
@@ -57,7 +58,7 @@ async function draw(){
 
 window.onkeypress = function(e){
     key = e.keyCode ? e.keyCode : e.which;
-    console.log(key);
+    // console.log(key);
 }
 
 function boucle(){
@@ -90,6 +91,8 @@ function boucle(){
         while(contains(snake, pomme)){
             pomme = randomPos();
         }
+        score++;
+        document.getElementById('score').innerHTML="Score: "+score;
     }
     else{
         snake.pop();
@@ -101,7 +104,7 @@ function boucle(){
         || snake[0][0] === 30
         || snake[0][1] === 30
         ){
-        console.log("end");
+        // console.log("end");
         return false;
     }
 
