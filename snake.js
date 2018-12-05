@@ -10,15 +10,6 @@ function randomPos(){
     return [x, y];
 }
 
-function sleep(milliseconds) {
-    var start = new Date().getTime();
-    for (var i = 0; i < 1e7; i++) {
-        if ((new Date().getTime() - start) > milliseconds){
-            break;
-        }
-    }
-}
-
 function contains(list, pos){
     for(let i = 0; i < list.length; i++){
         if(list[i][0] === pos[0] && list[i][1] === pos[1]) return true;
@@ -105,9 +96,12 @@ async function run(){
     key = -1;
     dir = 3;
     draw();
+
+    let sp = document.getElementById("dif");
+    let time = sp.value;
     
     let inter = setInterval(function (){
         //console.log('boucle');
         if(!boucle(true)) clearTimeout(inter);
-    }, 200);
+    }, time);
 }
