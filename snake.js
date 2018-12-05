@@ -9,20 +9,17 @@ const dirs = [[0, -1], [1, 0], [0, 1], [-1, 0]];
 const fontColor = ["#FFFFFF", "#000000"];
 const snakeColor = ["#000000", "#FFFFFF"];
 const pommeColor = ["#FF0000", "#FF0000"];
-const borderColor = ["black", "white"];
 let theme = 0;
 
 function changeTheme(){
     //console.log('change');
-    if(theme === 0) theme = 1;
-    else theme = 0;
-    document.getElementById('body').style.backgroundColor = fontColor[theme];
-    document.getElementById('text').style.color = borderColor[theme];
-    document.getElementById('score').style.color = borderColor[theme];
-    if(end){
-        document.getElementById('canvas').style.border = "2px solid red";
-    }else{
-        document.getElementById('canvas').style.border = "2px solid " + borderColor[theme];
+    if(theme === 0){
+        theme = 1;
+        document.getElementById("body").className = "black";
+    }
+    else{
+        theme = 0;
+        document.getElementById("body").className = "white";
     }
     if(snake !== null) draw();
 }
@@ -110,7 +107,7 @@ function boucle(){
         || snake[0][0] === 30
         || snake[0][1] === 30
         ){
-        document.getElementById('canvas').style.border = "2px solid red";
+        document.getElementById('canvas').className = "loose";
         end = true;
         // console.log("end");
         return false;
@@ -126,7 +123,7 @@ async function run(){
         inter = null;
     }
     end = false;
-    document.getElementById('canvas').style.border = "2px solid " + borderColor[theme];
+    document.getElementById('canvas').className = 'border';
     snake = [];
     snake.push(randomPos());
     snake.push([snake[0][0]+1, snake[0][1]]);

@@ -1,0 +1,15 @@
+.white{
+    background-color: lightsteelblue;
+}
+
+.white #canvas{
+    background-color: white;
+}
+
+.white .text{
+    color: black;
+}
+
+.white .border{
+    border: 2px solid black;
+}

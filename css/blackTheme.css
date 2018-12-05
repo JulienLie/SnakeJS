@@ -1,0 +1,15 @@
+.black{
+    background-color: black;
+}
+
+.black #canvas{
+    background-color: black;
+}
+
+.black .text{
+    color: white;
+}
+
+.black .border{
+    border: 2px solid white;
+}
