@@ -2,6 +2,8 @@ let snake = null;
 let pomme = null;
 let key = -1;
 let dir = 3;
+let end = false;
+let inter = null;
 const dirs = [[0, -1], [1, 0], [0, 1], [-1, 0]];
 const fontColor = ["#FFFFFF", "#000000"];
 const snakeColor = ["#000000", "#FFFFFF"];
@@ -14,7 +16,11 @@ function changeTheme(){
     if(theme === 0) theme = 1;
     else theme = 0;
     document.getElementById('body').style.backgroundColor = fontColor[theme];
-    document.getElementById('canvas').style.border = "2px solid " + borderColor[theme];
+    if(end){
+        document.getElementById('canvas').style.border = "2px solid red";
+    }else{
+        document.getElementById('canvas').style.border = "2px solid " + borderColor[theme];
+    }
     document.getElementById('text').style.color = borderColor[theme];
     if(snake !== null) draw();
 }
@@ -93,6 +99,8 @@ function boucle(){
         || snake[0][1] === 30
         ){
         console.log("end");
+        document.getElementById('canvas').style.border = "2px solid red";
+        end = true;
         return false;
     }
 
@@ -101,6 +109,12 @@ function boucle(){
 }
 
 async function run(){
+    if(inter !== null){
+        clearTimeout(inter);
+        inter = null;
+    }
+    end = false;
+    document.getElementById('canvas').style.border = "2px solid " + borderColor[theme];
     snake = [];
     snake.push(randomPos());
     snake.push([snake[0][0]+1, snake[0][1]]);
@@ -116,7 +130,7 @@ async function run(){
     let sp = document.getElementById("dif");
     let time = sp.value;
 
-    let inter = setInterval(function (){
+    inter = setInterval(function (){
         //console.log('boucle');
         if(!boucle(true)) clearTimeout(inter);
     }, time);
