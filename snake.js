@@ -8,11 +8,20 @@ let score = 0;
 let isPommeSpeciale = false;
 let countPomme = 0;
 let pommeSpecialeUnable = false;
+let canSpeedUp = true;
 const dirs = [[0, -1], [1, 0], [0, 1], [-1, 0]];
 const fontColor = ["#FFFFFF", "#000000"];
 const snakeColor = ["#000000", "#FFFFFF"];
 const pommeColor = ["#FF0000", "#FF0000"];
 const pommeSpecialeColor = ["#00FF00", "#00FF00"];
+let dif = 200;
+const scoreMult = {
+    400:1,
+    200:2,
+    100:4,
+    50:6,
+    30:10
+}
 let theme = 0;
 
 function changeTheme() {
@@ -73,14 +82,20 @@ window.onkeypress = function (e) {
         run();
     }
     if (!end && inter === null && (key === 37 || key === 113 || key === 38 || key === 122 || key === 39 || key === 100 || key === 40 || key === 115)) {
-        let sp = document.getElementById("dif");
-        let time = sp.value;
-        inter = setInterval(function () {
-            //console.log('boucle');
-            if (!boucle()) clearTimeout(inter);
-        }, time);
+        interval(dif);
     }
     // console.log(key);
+}
+
+function interval(time) {
+    inter = setInterval(() => {
+        if (!boucle()) clearInterval(inter);
+        else if ((score+1) % (10*scoreMult[dif]) === 0 && canSpeedUp && time > 30) {
+            clearInterval(inter);
+            canSpeedUp = false;
+            interval(time-10);
+        }
+    }, time)
 }
 
 function validateTerms() {
@@ -123,13 +138,14 @@ function boucle() {
             }
         }
 
-        score++;
+        score += scoreMult[dif];
         document.getElementById('score').innerHTML = "Score: " + score;
 
+        canSpeedUp = true;
 
     } else if (countPomme > 0) {
         countPomme--;
-        score++;
+        score += scoreMult[dif];
         document.getElementById('score').innerHTML = "Score: " + score;
     }
     else {
@@ -171,5 +187,6 @@ async function run() {
     }
     key = -1;
     dir = 3;
+    dif = document.getElementById("dif").value;
     draw();
 }
