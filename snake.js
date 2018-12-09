@@ -21,8 +21,16 @@ const scoreMult = {
     100:4,
     50:6,
     30:10
-}
+};
 let theme = 0;
+
+function getScore(){
+    let ret = score.toString();
+    while(ret.length < 5){
+        ret = '0' + ret;
+    }
+    return ret;
+}
 
 function changeTheme() {
     //console.log('change');
@@ -85,12 +93,13 @@ window.onkeypress = function (e) {
         interval(dif);
     }
     // console.log(key);
-}
+};
 
 function interval(time) {
     inter = setInterval(() => {
+        console.log("pomme: " + ((score/scoreMult[dif])+1) % 10 + " time: " + time + " speedup: " + canSpeedUp + " timeok: " + (time > 30));
         if (!boucle()) clearInterval(inter);
-        else if ((score+1) % (10*scoreMult[dif]) === 0 && canSpeedUp && time > 30) {
+        else if (((score/scoreMult[dif])+1) % 10 === 0 && canSpeedUp && time > 30) {
             clearInterval(inter);
             canSpeedUp = false;
             interval(time-10);
@@ -99,12 +108,8 @@ function interval(time) {
 }
 
 function validateTerms() {
-    var c = document.getElementById('termsCheckbox');
-    if (c.checked) {
-        return true;
-    } else {
-        return false;
-    }
+    let c = document.getElementById('termsCheckbox');
+    return c.checked;
 }
 
 function boucle() {
@@ -131,22 +136,18 @@ function boucle() {
         }
         while (contains(snake, pomme)) {
             pomme = randomPos();
-            if (pommeSpecialeUnable && Math.random() < 0.1) {
-                isPommeSpeciale = true;
-            } else {
-                isPommeSpeciale = false;
-            }
+            isPommeSpeciale = (pommeSpecialeUnable && Math.random() < 0.1);
         }
 
         score += scoreMult[dif];
-        document.getElementById('score').innerHTML = "Score: " + score;
+        document.getElementById('score').innerHTML = "Score: " + getScore();
 
         canSpeedUp = true;
 
     } else if (countPomme > 0) {
         countPomme--;
         score += scoreMult[dif];
-        document.getElementById('score').innerHTML = "Score: " + score;
+        document.getElementById('score').innerHTML = "Score: " + getScore();
     }
     else {
         snake.pop();
@@ -181,7 +182,7 @@ async function run() {
     snake.push([snake[1][0] + 1, snake[1][1]]);
     pomme = randomPos();
     score = 0;
-    document.getElementById('score').innerHTML = "Score: " + score;
+    document.getElementById('score').innerHTML = "Score: " + getScore();
     while (contains(snake, pomme)) {
         pomme = randomPos();
     }
